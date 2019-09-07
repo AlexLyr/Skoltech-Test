@@ -1,10 +1,12 @@
 package ru.scoltech.measurement.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 import org.springframework.data.jdbc.repository.config.JdbcConfiguration;
+import org.springframework.data.relational.core.mapping.event.BeforeSaveEvent;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -12,8 +14,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
+import ru.scoltech.measurement.model.BaseEntity;
 
 import javax.sql.DataSource;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 
 @Configuration
@@ -44,5 +48,17 @@ public class DataConfig extends JdbcConfiguration {
     @Bean
     public NamedParameterJdbcOperations operations() {
         return new NamedParameterJdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public ApplicationListener<BeforeSaveEvent> idSetting() {
+        return event -> {
+            if (event.getEntity() instanceof BaseEntity) {
+                BaseEntity entity = (BaseEntity) event.getEntity();
+                if (entity.isNew()) {
+                    entity.setId(UUID.randomUUID().toString());
+                }
+            }
+        };
     }
 }

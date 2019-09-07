@@ -1,11 +1,14 @@
 package ru.scoltech.measurement.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import lombok.EqualsAndHashCode;
 
+import java.util.HashSet;
+import java.util.Set;
+
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class Building {
-    @Id
-    private String id;
+public class Building extends BaseEntity {
     private String name;
+    private Set<Gauge> gauges = new HashSet<>();
 }

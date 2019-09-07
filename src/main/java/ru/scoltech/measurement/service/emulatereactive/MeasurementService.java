@@ -1,4 +1,4 @@
-package ru.scoltech.measurement.service;
+package ru.scoltech.measurement.service.emulatereactive;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -7,8 +7,6 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Scheduler;
 import ru.scoltech.measurement.dao.MeasurementRepository;
 import ru.scoltech.measurement.model.Measurement;
-
-import java.util.UUID;
 
 @Service
 @Slf4j
@@ -24,10 +22,6 @@ public class MeasurementService extends AppService {
 
     public Mono<Measurement> saveMeasure(Mono<Measurement> measurement) {
         return measurement
-                .map(it -> {
-                    it.setId(UUID.randomUUID().toString());
-                    return it;
-                })
                 .doOnNext(it -> asyncCallable(() -> repository.save(it)))
                 .doOnError(msg -> log.error(msg.getMessage()))
                 .defaultIfEmpty(null);

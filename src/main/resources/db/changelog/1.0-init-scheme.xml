@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+
+    <changeSet author="alyrchikov" id="1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFailMessage="Table already exists">
+            <not>
+                <tableExists tableName="building"/>
+            </not>
+        </preConditions>
+        <createTable tableName="building">
+            <column name="id" type="VARCHAR(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alyrchikov" id="2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFailMessage="Table already exists">
+            <not>
+                <tableExists tableName="gauge"/>
+            </not>
+        </preConditions>
+        <createTable tableName="gauge">
+            <column name="id" type="VARCHAR(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="building_id" type="VARCHAR(36)">
+                <constraints nullable="false" foreignKeyName="fk_building_id"
+                             references="building(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="alyrchikov" id="3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFailMessage="Table already exists">
+            <not>
+                <tableExists tableName="measurement"/>
+            </not>
+        </preConditions>
+        <createTable tableName="measurement">
+            <column name="id" type="VARCHAR(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="gauge_id" type="VARCHAR(36)">
+                <constraints nullable="false" foreignKeyName="fk_gauge_id"
+                             references="gauge(id)"/>
+            </column>
+            <column name="building_id" type="VARCHAR(36)">
+                <constraints nullable="false" foreignKeyName="fk_building_id"
+                             references="building(id)"/>
+            </column>
+            <column name="value" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

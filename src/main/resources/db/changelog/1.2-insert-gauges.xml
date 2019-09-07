@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+
+    <changeSet author="alyrchikov" id="1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFailMessage="Table not exists">
+            <tableExists tableName="gauge"/>
+        </preConditions>
+        <insert tableName="gauge">
+            <column name="id" value="f694eb2a-7e90-43c6-98a0-d1bb9e22e0bd"/>
+            <column name="building_id" value="4f319c31-280c-43fe-8a20-fcf43f975954"/>
+            <column name="type" value="TEMPERATURE"/>
+        </insert>
+        <insert tableName="gauge">
+            <column name="id" value="1b23c708-8dfd-41b1-9865-524f9cbaf299"/>
+            <column name="building_id" value="4f319c31-280c-43fe-8a20-fcf43f975954"/>
+            <column name="type" value="TEMPERATURE"/>
+        </insert>
+        <insert tableName="gauge">
+            <column name="id" value="0ce07b49-ead6-4b96-bc11-14011cab3974"/>
+            <column name="building_id" value="4f319c31-280c-43fe-8a20-fcf43f975954"/>
+            <column name="type" value="TEMPERATURE"/>
+        </insert>
+
+        <insert tableName="gauge">
+            <column name="id" value="de5c6ba0-23ee-4291-9784-ab16824c56cc"/>
+            <column name="building_id" value="7fb07925-e3f1-436f-8c6f-454a715740cc"/>
+            <column name="type" value="TEMPERATURE"/>
+        </insert>
+        <insert tableName="gauge">
+            <column name="id" value="b3fe536c-81c1-4e41-9dc4-93486d9f2877"/>
+            <column name="building_id" value="7fb07925-e3f1-436f-8c6f-454a715740cc"/>
+            <column name="type" value="TEMPERATURE"/>
+        </insert>
+        <insert tableName="gauge">
+            <column name="id" value="99b5e225-36a9-48a9-8d9c-ad4bc33a41ab"/>
+            <column name="building_id" value="7fb07925-e3f1-436f-8c6f-454a715740cc"/>
+            <column name="type" value="TEMPERATURE"/>
+        </insert>
+
+        <insert tableName="gauge">
+            <column name="id" value="121fba52-b140-483e-98c3-a6e00fa60c5a"/>
+            <column name="building_id" value="e46e1ca6-4d2f-4378-b120-e049dbf29dd9"/>
+            <column name="type" value="TEMPERATURE"/>
+        </insert>
+        <insert tableName="gauge">
+            <column name="id" value="9a9ca215-f6fb-4b22-9a6b-892f002f5e51"/>
+            <column name="building_id" value="e46e1ca6-4d2f-4378-b120-e049dbf29dd9"/>
+            <column name="type" value="TEMPERATURE"/>
+        </insert>
+        <insert tableName="gauge">
+            <column name="id" value="644abbe3-f1f9-4962-94a3-d537eb046210"/>
+            <column name="building_id" value="e46e1ca6-4d2f-4378-b120-e049dbf29dd9"/>
+            <column name="type" value="TEMPERATURE"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="2" author="alyrchikov">
+        <createIndex tableName="gauge" indexName="gauge_building_idx">
+            <column name="building_id" type="VARCHAR(36)"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

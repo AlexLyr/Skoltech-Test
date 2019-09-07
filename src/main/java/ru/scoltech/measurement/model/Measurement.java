@@ -2,19 +2,17 @@ package ru.scoltech.measurement.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Measurement {
-    @Id
-    private String id;
+public class Measurement extends BaseEntity{
     @NotNull
     private Building building;
     @NotNull

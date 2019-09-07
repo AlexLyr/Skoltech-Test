@@ -1,5 +1,6 @@
 package ru.scoltech.measurement.handlers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -8,11 +9,12 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 import ru.scoltech.measurement.model.Measurement;
-import ru.scoltech.measurement.service.MeasurementService;
+import ru.scoltech.measurement.service.emulatereactive.MeasurementService;
 
 @Component
 public class MeasurementHandler {
 
+    @Autowired
     private MeasurementService service;
 
     public Mono<ServerResponse> saveMeasurement(ServerRequest request) {

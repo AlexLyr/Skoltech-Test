@@ -2,7 +2,9 @@ plugins {
     id 'org.springframework.boot' version '2.1.7.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id 'com.bmuschko.docker-spring-boot-application' version '4.10.0'
 }
+
 
 group = 'ru.scoltech'
 version = '1.0'
@@ -16,15 +18,30 @@ configurations {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
-//    implementation 'org.liquibase:liquibase-core'
+    implementation 'org.liquibase:liquibase-core'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.6'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
+}
+
+String getConfigurationProperty(String envVar, String sysProp) {
+    System.getenv(envVar) ?: project.findProperty(sysProp)
+}
+
+docker {
+    springBootApplication {
+        baseImage = 'openjdk:8-alpine'
+        ports = [9090, 8080, 8081, 8082]
+        maintainer = 'lyrchikov.alex@gmail.com'
+        tag = 'spider16121993/measurement-service:1.0'
+        jvmArgs = ['-Xmx2048m']
+    }
 }
