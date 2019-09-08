@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 import ru.scoltech.measurement.model.Measurement;
+import ru.scoltech.measurement.routers.MeasurementValidator;
 import ru.scoltech.measurement.service.ReactiveMeasurementService;
 
 @Component
@@ -18,17 +19,18 @@ public class MeasurementHandler {
 
     @Autowired
     private ReactiveMeasurementService service;
+    @Autowired
+    private MeasurementValidator validator;
 
     public Mono<ServerResponse> saveMeasurement(ServerRequest request) {
         Mono<Measurement> measurement = request.bodyToMono(Measurement.class)
-                .onErrorMap(it -> {
-                    log.error(it.getMessage());
-                    return it;
-                });
+                .doOnNext(validator::validateBody);
         return service.saveMeasure(measurement)
                 .flatMap(it -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .body(BodyInserters.fromObject(it)))
                 .switchIfEmpty(ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
+
+
 }

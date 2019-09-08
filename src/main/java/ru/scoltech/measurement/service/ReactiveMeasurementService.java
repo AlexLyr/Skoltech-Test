@@ -6,6 +6,8 @@ import reactor.core.publisher.Mono;
 import ru.scoltech.measurement.dao.ReactiveMeasurementRepository;
 import ru.scoltech.measurement.model.Measurement;
 
+import java.util.UUID;
+
 @Service
 @Slf4j
 public class ReactiveMeasurementService {
@@ -16,6 +18,10 @@ public class ReactiveMeasurementService {
 
     public Mono<Measurement> saveMeasure(Mono<Measurement> measurement) {
         return measurement
+                .map(it -> {
+                    it.setId(UUID.randomUUID().toString());
+                    return it;
+                })
                 .doOnNext(repository::save)
                 .doOnError(msg -> log.error(msg.getMessage()));
     }
