@@ -2,9 +2,9 @@ plugins {
     id 'org.springframework.boot' version '2.1.7.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id 'org.liquibase.gradle' version '2.0.1'
     id 'com.bmuschko.docker-spring-boot-application' version '4.10.0'
 }
-
 
 group = 'ru.scoltech'
 version = '1.0'
@@ -19,17 +19,30 @@ configurations {
 repositories {
     mavenCentral()
     jcenter()
+    maven {
+        url 'https://repo.spring.io/snapshot'
+    }
+    maven {
+        url 'https://repo.spring.io/milestone'
+    }
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.data:spring-data-r2dbc:1.0.0.M2'
+    implementation 'io.r2dbc:r2dbc-postgresql:1.0.0.M7'
     implementation 'org.liquibase:liquibase-core'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.6'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
+
+    liquibaseRuntime 'org.postgresql:postgresql:9.4.1211.jre7'
+    liquibaseRuntime 'org.liquibase:liquibase-core:3.6.3'
+    liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:2.0.1'
+    liquibaseRuntime 'ch.qos.logback:logback-core:1.2.3'
+    liquibaseRuntime 'ch.qos.logback:logback-classic:1.2.3'
 }
 
 String getConfigurationProperty(String envVar, String sysProp) {
@@ -43,5 +56,18 @@ docker {
         maintainer = 'lyrchikov.alex@gmail.com'
         tag = 'spider16121993/measurement-service:1.0'
         jvmArgs = ['-Xmx2048m']
+    }
+}
+
+//for running liquibase from plugin
+def changeLog = "$projectDir/src/main/resources/db/changelog-master.xml"
+liquibase {
+    activities {
+        main {
+            changeLogFile changeLog
+            url 'jdbc:postgresql://localhost:5434/measurement'
+            username 'postgres'
+            password 'password'
+        }
     }
 }

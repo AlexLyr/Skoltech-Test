@@ -15,6 +15,11 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=measurement
       - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/measurement
+      - SPRING_R2DBC_HOST=database
+      - SPRING_R2DBC_PORT=5432
+      - SPRING_R2DBC_DATABASE=measurement
+      - SPRING_R2DBC_USERNAME=postgres
+      - SPRING_R2DBC_PASSWORD=password
     depends_on:
       - db
   db:
