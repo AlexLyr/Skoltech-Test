@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+    <changeSet author="alyrchikov" id="1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFailMessage="Table not exists">
+            <tableExists tableName="measurement"/>
+        </preConditions>
+        <insert tableName="measurement">
+            <column name="gauge_id" value="f694eb2a-7e90-43c6-98a0-d1bb9e22e0bd"/>
+            <column name="building_id" value="4f319c31-280c-43fe-8a20-fcf43f975954"/>
+            <column name="value" value="20.4"/>
+            <column name="date_time" value="2016-08-25 01:23:46.931"/>
+        </insert>
+        <insert tableName="measurement">
+            <column name="gauge_id" value="f694eb2a-7e90-43c6-98a0-d1bb9e22e0bd"/>
+            <column name="building_id" value="4f319c31-280c-43fe-8a20-fcf43f975954"/>
+            <column name="value" value="12.4"/>
+            <column name="date_time" value="2016-08-24 01:23:46.931"/>
+        </insert>
+        <insert tableName="measurement">
+            <column name="gauge_id" value="f694eb2a-7e90-43c6-98a0-d1bb9e22e0bd"/>
+            <column name="building_id" value="4f319c31-280c-43fe-8a20-fcf43f975954"/>
+            <column name="value" value="30.4"/>
+            <column name="date_time" value="2016-08-12 01:23:46.931"/>
+        </insert>
+
+        <insert tableName="measurement">
+            <column name="gauge_id" value="1b23c708-8dfd-41b1-9865-524f9cbaf299"/>
+            <column name="building_id" value="4f319c31-280c-43fe-8a20-fcf43f975954"/>
+            <column name="value" value="13.4"/>
+            <column name="date_time" value="2016-08-08 01:23:46.931"/>
+        </insert>
+        <insert tableName="measurement">
+            <column name="gauge_id" value="1b23c708-8dfd-41b1-9865-524f9cbaf299"/>
+            <column name="building_id" value="4f319c31-280c-43fe-8a20-fcf43f975954"/>
+            <column name="value" value="11.4"/>
+            <column name="date_time" value="2016-08-10 01:23:46.931"/>
+        </insert>
+        <insert tableName="measurement">
+            <column name="gauge_id" value="1b23c708-8dfd-41b1-9865-524f9cbaf299"/>
+            <column name="building_id" value="4f319c31-280c-43fe-8a20-fcf43f975954"/>
+            <column name="value" value="8.4"/>
+            <column name="date_time" value="2016-08-11 01:23:46.931"/>
+        </insert>
+
+        <insert tableName="measurement">
+            <column name="gauge_id" value="0ce07b49-ead6-4b96-bc11-14011cab3974"/>
+            <column name="building_id" value="7fb07925-e3f1-436f-8c6f-454a715740cc"/>
+            <column name="value" value="123.4"/>
+            <column name="date_time" value="2016-08-25 01:23:46.931"/>
+        </insert>
+        <insert tableName="measurement">
+            <column name="gauge_id" value="0ce07b49-ead6-4b96-bc11-14011cab3974"/>
+            <column name="building_id" value="7fb07925-e3f1-436f-8c6f-454a715740cc"/>
+            <column name="value" value="3.4"/>
+            <column name="date_time" value="2016-08-24 01:23:46.931"/>
+        </insert>
+        <insert tableName="measurement">
+            <column name="gauge_id" value="0ce07b49-ead6-4b96-bc11-14011cab3974"/>
+            <column name="building_id" value="7fb07925-e3f1-436f-8c6f-454a715740cc"/>
+            <column name="value" value="2.4"/>
+            <column name="date_time" value="2016-08-12 01:23:46.931"/>
+        </insert>
+
+        <insert tableName="measurement">
+            <column name="gauge_id" value="de5c6ba0-23ee-4291-9784-ab16824c56cc"/>
+            <column name="building_id" value="7fb07925-e3f1-436f-8c6f-454a715740cc"/>
+            <column name="value" value="34.4"/>
+            <column name="date_time" value="2016-08-24 01:23:46.931"/>
+        </insert>
+        <insert tableName="measurement">
+            <column name="gauge_id" value="de5c6ba0-23ee-4291-9784-ab16824c56cc"/>
+            <column name="building_id" value="7fb07925-e3f1-436f-8c6f-454a715740cc"/>
+            <column name="value" value="321.4"/>
+            <column name="date_time" value="2016-08-21 01:23:46.931"/>
+        </insert>
+        <insert tableName="measurement">
+            <column name="gauge_id" value="de5c6ba0-23ee-4291-9784-ab16824c56cc"/>
+            <column name="building_id" value="7fb07925-e3f1-436f-8c6f-454a715740cc"/>
+            <column name="value" value="11.4"/>
+            <column name="date_time" value="2016-08-12 01:23:46.931"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

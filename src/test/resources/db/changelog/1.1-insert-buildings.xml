@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+
+    <changeSet author="alyrchikov" id="1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFailMessage="Table not exists">
+            <tableExists tableName="building"/>
+        </preConditions>
+        <insert tableName="building">
+            <column name="id" value="4f319c31-280c-43fe-8a20-fcf43f975954"/>
+            <column name="name" value="БЦ Плаза"/>
+        </insert>
+        <insert tableName="building">
+            <column name="id" value="7fb07925-e3f1-436f-8c6f-454a715740cc"/>
+            <column name="name" value="Школа №6"/>
+        </insert>
+        <insert tableName="building">
+            <column name="id" value="e46e1ca6-4d2f-4378-b120-e049dbf29dd9"/>
+            <column name="name" value="Горный университет"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

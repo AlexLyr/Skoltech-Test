@@ -18,6 +18,9 @@ public class MeasurementRouter {
                 .route()
                 .path("/measurements", builder -> builder
                         .POST("", accept(MediaType.APPLICATION_JSON_UTF8), measurementHandler::saveMeasurement)
+                        .GET("/gauge", measurementHandler::getMeasurementsByGauge)
+                        .GET("/building", measurementHandler::getMeasurementsByBuilding)
+                        .GET("/building/average", measurementHandler::getAverageValueForEachBuilding)
                 )
                 .build();
     }

@@ -1,8 +1,6 @@
 package ru.scoltech.measurement.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Persistable;
@@ -14,6 +12,11 @@ public class BaseEntity implements Persistable, Serializable {
 
     @Id
     private String id;
+
+    @JsonIgnore
+    public String getEntityId() {
+        return id;
+    }
 
     @Override
     public Object getId() {

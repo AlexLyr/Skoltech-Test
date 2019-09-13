@@ -7,7 +7,7 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.beanvalidation.CustomValidatorBean;
 import org.springframework.web.server.ServerWebInputException;
-import ru.scoltech.measurement.model.Measurement;
+import ru.scoltech.measurement.model.MeasurementDto;
 
 import java.util.stream.Collectors;
 
@@ -17,7 +17,7 @@ public class MeasurementValidator extends CustomValidatorBean {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return Measurement.class.isAssignableFrom(clazz);
+        return MeasurementDto.class.isAssignableFrom(clazz);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class MeasurementValidator extends CustomValidatorBean {
         super.validate(target, errors);
     }
 
-    public void validateBody(Measurement measurement) {
+    public void validateBody(MeasurementDto measurement) {
         Errors errors = new BeanPropertyBindingResult(measurement, "measurement");
         validate(measurement, errors);
         if (errors.hasErrors()) {
