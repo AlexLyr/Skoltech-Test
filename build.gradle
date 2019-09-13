@@ -49,3 +49,19 @@ docker {
         jvmArgs = ['-Xmx2048m']
     }
 }
+
+task runApplication() {
+    doLast {
+        exec {
+            executable "./appRun.sh"
+        }
+    }
+}
+
+task stopApplication() {
+    doLast {
+        exec {
+            executable "./appStop.sh"
+        }
+    }
+}
