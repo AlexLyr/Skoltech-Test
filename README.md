@@ -5,7 +5,7 @@ This is test application for skolkovo. Was written on Webflux with jdbc driver,
 cause R2DBC is experimental feature, and i was exhausted try to get it work right.
 
 Run application without IntellijIdea stater run ```./gradlew runApplication```
-or just run in bash ```sh appRun.sh```
+or just run in bash ```sh appRun.sh``` to stop app and purge all containers run ```sh appStop.sh```
 
 Integration tests are using docker testcontainers and boot with ```./gradlew test``` command.
 
