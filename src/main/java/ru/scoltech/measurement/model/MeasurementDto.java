@@ -20,12 +20,16 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class MeasurementDto {
     private String id;
+
     @NotNull(message = "building id must be not null")
     private Building building;
+
     @NotNull(message = "gauge id must be not null")
     private Gauge gauge;
+
     @NotNull(message = "value must be not null")
     private float value;
+    
     @NotNull(message = "Date time must be not null")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)

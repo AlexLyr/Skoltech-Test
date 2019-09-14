@@ -1,7 +1,7 @@
 package ru.scoltech.measurement.service.emulatereactive;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -16,17 +16,16 @@ import java.util.Map;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class MeasurementService {
-    @Autowired
-    private Scheduler jdbcScheduler;
-    @Autowired
-    private MeasurementRepositoryFacade measurementFacade;
+    private final Scheduler jdbcScheduler;
+    private final MeasurementRepositoryFacade measurementFacade;
 
     public Mono<MeasurementDto> saveMeasure(Mono<MeasurementDto> measurementDto) {
         return measurementDto
                 .subscribeOn(Schedulers.parallel())
                 .publishOn(jdbcScheduler)
-                .doOnNext(it -> measurementFacade.save(it));
+                .doOnNext(measurementFacade::save);
     }
 
     public Flux<Measurement> findAllByGauge(Map<String, String> params) {

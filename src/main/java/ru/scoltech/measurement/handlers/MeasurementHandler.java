@@ -1,7 +1,7 @@
 package ru.scoltech.measurement.handlers;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,6 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import ru.scoltech.measurement.RequestParams;
 import ru.scoltech.measurement.model.AverageMeasurement;
 import ru.scoltech.measurement.model.Measurement;
 import ru.scoltech.measurement.model.MeasurementDto;
@@ -19,16 +18,16 @@ import ru.scoltech.measurement.service.emulatereactive.MeasurementService;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Predicate;
+
+import static ru.scoltech.measurement.util.RequestParams.*;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class MeasurementHandler {
 
-    @Autowired
-    private MeasurementService service;
-    @Autowired
-    private MeasurementValidator validator;
+    private final MeasurementService service;
+    private final MeasurementValidator validator;
 
     public Mono<ServerResponse> saveMeasurement(ServerRequest request) {
         Mono<MeasurementDto> measurement = request.bodyToMono(MeasurementDto.class)
@@ -53,7 +52,7 @@ public class MeasurementHandler {
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(buildingId
-                        .map(it -> service.findLastByBuilding(it))
+                        .map(service::findLastByBuilding)
                         .orElse(Flux.empty()), Measurement.class)
                 .switchIfEmpty(ServerResponse.noContent().build());
     }
@@ -67,11 +66,6 @@ public class MeasurementHandler {
     }
 
     private Map<String, String> removeNotAllowedParams(ServerRequest request) {
-        Predicate<String> isGaugeId = RequestParams.GAUGE_ID::equals;
-        Predicate<String> isFrom = RequestParams.FROM::equals;
-        Predicate<String> isTo = RequestParams.TO::equals;
-        Predicate<String> isSize = RequestParams.SIZE::equals;
-        Predicate<String> isNumber = RequestParams.NUMBER::equals;
         request.queryParams()
                 .toSingleValueMap()
                 .keySet()

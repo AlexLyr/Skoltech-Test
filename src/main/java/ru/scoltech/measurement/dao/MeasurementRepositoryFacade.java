@@ -1,13 +1,13 @@
 package ru.scoltech.measurement.dao;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
-import ru.scoltech.measurement.RequestParams;
 import ru.scoltech.measurement.model.*;
+import ru.scoltech.measurement.util.RequestParams;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -17,16 +17,14 @@ import java.util.Optional;
 
 @Repository
 @Slf4j
+@RequiredArgsConstructor
 public class MeasurementRepositoryFacade {
     private static final int DEFAULT_SIZE = 100;
     private static final int DEFAULT_NUMBER = 0;
 
-    @Autowired
-    private BuildingRepository buildingRepository;
-    @Autowired
-    private GaugeRepository gaugeRepository;
-    @Autowired
-    private MeasurementRepository measurementRepository;
+    private final BuildingRepository buildingRepository;
+    private final GaugeRepository gaugeRepository;
+    private final MeasurementRepository measurementRepository;
 
     @Transactional(isolation = Isolation.READ_UNCOMMITTED)
     public MeasurementDto save(MeasurementDto dto) {

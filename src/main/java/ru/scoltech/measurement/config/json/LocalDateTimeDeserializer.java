@@ -13,9 +13,9 @@ import java.time.ZoneId;
 
 public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
     @Override
-    public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        ObjectCodec codec = p.getCodec();
-        JsonNode tree = codec.readTree(p);
+    public LocalDateTime deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException {
+        ObjectCodec codec = parser.getCodec();
+        JsonNode tree = codec.readTree(parser);
         String dateTimeAsString = tree.textValue();
         return LocalDateTime.ofInstant(Instant.parse(dateTimeAsString), ZoneId.of("UTC"));
     }
